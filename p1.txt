@@ -1,0 +1,88 @@
+Practical 1:
+A:Perform linear regression on given data and show the predictions.(student,hours,scores)
+B. Perform polynomial regression on the given data and show the predictions.(data should be on position,level and salary of employee)
+C. Perform Logistic regression(data should be on position,level and salary of employee)
+
+
+
+A) LINEAR REGRESSION 
+
+import pandas as pd
+from sklearn.linear_model import Linear Regression
+from sklearn.model_selection import train_test_split
+
+score_df = pd.read_csv(r"C:\Users\HP\Documents\ML PRACT\students.csv")
+print(score_df.head())
+
+X = score_df.iloc[:, -1].values
+Y = score_df.iloc[:, 1].values
+print("x", X, "\n y=", Y)
+
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=0)
+print("x_train-", X_train, "\n Y_train-", Y_train)
+print("x_test", X_test, "\n Y_test", Y_test)
+
+regressor = Linear Regression()
+regressor.fit(X_train, Y_train)
+Y_pred = regressor.predict(X_test)
+print("y_pred-", Y_pred)
+
+
+
+B) POLYNOMIAL REGRESSION
+
+import pandas as pd
+from sklearn.linear_model import Linear Regression
+from sklearn.preprocessing import Polynomial Features
+from sklearn.model_selection import train_test_split
+
+score_df=pd.read_csv("C:\\Users\\HP\\Documents\\ML PRACT\\position_sal.csv")
+print(score_df.head())
+
+X=score_df.iloc[:,1:-1].values
+Y=score_df.iloc[:, -1].values
+print("x-",X,"\n y=",Y)
+
+X_train,X_test, Y_train, Y_test = train_test_split(X,Y, test_size=0.2, random_state=0)
+print("x_train-",X_train, "\n Y_train-", Y_train)
+print("x_test-",X_test, "\n Y_test-", Y_test)
+
+regressor = Polynomial Features(degree = 100)
+x_poly_train = regressor.fit_transform(X_train)
+x_poly_test = regressor.fit_transform(X_test)
+
+lin_reg = Linear Regression()
+lin_reg.fit(x_poly_train, Y_train)
+
+y_pred=lin_reg.predict(x_poly_test)
+print("y_pred=",y_pred)
+
+
+C) LOGISTIC REGRESSION
+
+
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+
+score_df = pd.read_csv("C:\\Users\\HP\\Documents\\ML PRACT\\User_Data.csv")
+print(score_df.head(10))
+
+X = score_df.iloc[:, 2:-1].values
+y = score_df.iloc[:, -1].values
+print("x", X, "\ny=", y)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=0)
+print("x_train-", X_train, "\ny_train-", y_train)
+print("x_test-", X_test, "\ny_test-", y_test)
+
+sc_x = StandardScaler()
+xtrain = sc_x.fit_transform(X_train)
+xtest = sc_x.transform(X_test)
+
+reg = LogisticRegression(random_state=0)
+reg.fit(xtrain, y_train)
+
+y_pred = reg.predict(xtest)
+print("y_pred=", y_pred)

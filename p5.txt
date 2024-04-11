@@ -1,0 +1,68 @@
+Practical 5 : Perform SGD Classifier for binary classification tasks on the MNIST dataset
+
+
+from sklearn.datasets import fetch_openml
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+from sklearn.linear_model import SGDClassifier
+import numpy as np
+
+#fetching MNIST Dataset
+mnist = fetch_openml('mnist_784', version = 1)
+x, y = mnist['data'], mnist['target']
+print(x)
+print(y)
+
+
+#convert float to int
+y = y.astype(np.uint8)
+
+#splitting into training set and testing set
+x_train, x_test, y_train, y_test = x[:60000], x[60000:],y[:60000], y[60000:]
+y_train_5 = (y_train == 0) 
+y_test_5 = (y_test == 0)
+
+
+#Stochastic gradient descent
+sgd_clf = SGDClassifier(random_state=42)
+sgd_clf.fit(x_train, y_train_5)
+
+
+#checking for row 1
+some_digit = x.to_numpy()[1]
+print(sgd_clf.predict([some_digit]))
+
+
+#plotting image on row 1
+some_digit_image = some_digit.reshape(28, 28)
+plt.imshow(some_digit_image, cmap = mpl.cm.binary, interpolation = "nearest")
+plt.axis("on")
+plt.show()
+
+
+#Testing
+sgd_clf = SGDClassifier(random_state = 42)
+sgd_clf.fit(x_test, y_test_5)
+
+
+some_digit2 = x.to_numpy()[3]
+print(sgd_clf.predict([some_digit2]))
+
+some_digit_image2 = some_digit2.reshape(28, 28)
+plt.imshow(some_digit_image2, cmap = mpl.cm.binary, interpolation = "nearest")
+plt.axis("on")
+plt.show()
+
+all_digits = x.to_numpy()[:60000]
+y_pred = sgd_clf.predict(all_digits)
+
+for i in y_pred:
+  print(i)
+
+
+
+
+
+
+
+

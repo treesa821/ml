@@ -1,0 +1,79 @@
+Practical 2 : Cleaning Data
+
+#1. Changing data type
+import pandas as pd
+data = {'Maths' : ['30','75','60','77','92'],
+        'Science' : ['30','35','80','72','92'],
+        'Physics' : ['30','22','60','66','92']
+}
+df = pd.DataFrame(data)
+print("Original Dataframe=\n",df)
+
+
+#OR
+import pandas as pd
+df = pd.read_csv("C:\\Users\\HP\\Documents\\ML PRACT\\User_Data.csv")
+print(df.head())
+
+
+print("Data types in data frame = \n", df.dtypes)
+
+df = df.astype(float)
+print("Convert Dataframe=\n",df)
+
+print("Data types in data frame = \n", df.dtypes)
+
+
+#2. Remove or fill the missing values
+import pandas as pd
+import numpy as np
+
+df = {
+    "productid":[11,12,13,14,15],
+    "name": ['soap','powder','shampoo','sanitizer','handwash'],
+    "price":[np.nan,60,150,30,90],
+    "quantity":[2,np.nan,10,np.nan,5]
+}
+data = pd.DataFrame(df)
+print("Data frame = \n", data)
+
+
+
+data = data.astype({
+    "price":pd.Int64Dtype(),
+    "quantity":pd.Int64Dtype()
+})
+
+print("dropna(axis=1) = \n", data.dropna(axis=1))
+
+print("dropna(how='all')= \n", data.dropna(how="all"))
+
+print("dropna(how='any')= \n", data.dropna(how="any"))
+
+
+
+#3. Remove all outliers
+
+print("Clipped Dataframe = \n", data.price.clip(lower=50,upper=100))
+
+choice = [2,5,15,20]
+print("Filter Dataframe: \n", data[data.quantity.isin(choice)])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
