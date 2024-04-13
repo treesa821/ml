@@ -1,0 +1,831 @@
+PRAC 1A - NETBEANS - CALCULATOR
+
+
+package com.my.calculatorWS;
+
+import javax.jws.WebService;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+
+@WebService(serviceName = "CalculatorWS")
+public class CalculatorWS {
+
+    @WebMethod(operationName = "add")
+    public int add(@WebParam(name = "a") int a, @WebParam(name = "b") int b) {
+        return (a + b);
+    }
+
+    @WebMethod(operationName = "sub")
+    public int sub(@WebParam(name = "a") int a, @WebParam(name = "b") int b) {
+        return (a - b);
+    }
+
+    @WebMethod(operationName = "mul")
+    public int mul(@WebParam(name = "a") int a, @WebParam(name = "b") int b) {
+        return (a * b);
+    }
+
+    @WebMethod(operationName = "div")
+    public double div(@WebParam(name = "a") int a, @WebParam(name = "b") int b) {
+        return (a / b);
+    }
+}
+
+------------------------
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package treesajosephclient;
+import java.util.*;
+/**
+ *
+ * @author Lenovo
+ */
+public class TreesaJosephClient {
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println("Treesa Joseph Calculator");
+        System.out.println("Enter a no: ");
+        int a = sc.nextInt();
+        
+        System.out.println("Enter another no: ");
+        int b = sc.nextInt();
+        
+        System.out.println("Enter your choice: ");
+        System.out.println("1.Add: ");
+        System.out.println("2.Sub: ");
+        System.out.println("3.Multiply: ");
+        System.out.println("4.Division: ");
+        int choice = sc.nextInt();
+        
+        if(choice == 1)
+        {
+            System.out.println("Add: " + add(a,b));
+        }
+        else if(choice == 2)
+        {
+            System.out.println("Sub: " + sub(a,b));
+        }
+        else if(choice == 3)
+        {
+            System.out.println("Multiply: " + mul(a,b));
+        }
+         else if(choice == 2)
+        {
+            System.out.println("Division: " + div(a,b));
+        }
+        else
+         {
+            System.out.println("Invalid operation"); 
+         }
+    }
+
+    private static int add(int a, int b) {
+        com.my.calculator.Calculator_Service service = new com.my.calculator.Calculator_Service();
+        com.my.calculator.Calculator port = service.getCalculatorPort();
+        return port.add(a, b);
+    }
+
+    private static double div(int a, int b) {
+        com.my.calculator.Calculator_Service service = new com.my.calculator.Calculator_Service();
+        com.my.calculator.Calculator port = service.getCalculatorPort();
+        return port.div(a, b);
+    }
+
+    private static int mul(int a, int b) {
+        com.my.calculator.Calculator_Service service = new com.my.calculator.Calculator_Service();
+        com.my.calculator.Calculator port = service.getCalculatorPort();
+        return port.mul(a, b);
+    }
+
+    private static int sub(int a, int b) {
+        com.my.calculator.Calculator_Service service = new com.my.calculator.Calculator_Service();
+        com.my.calculator.Calculator port = service.getCalculatorPort();
+        return port.sub(a, b);
+    }
+          
+            
+    }
+   
+
+
+
+
+
+1B - .NET. CURRENCY
+
+MAIN -
+
+[WebMethod]
+        public double R2D(int rupees)
+        {
+            double result = rupees / 80;
+            return result;
+        }
+        [WebMethod]
+        public double D2R(int dollar)
+        {
+            double result = dollar * 80;
+            return result;
+        }
+
+
+CLIENT
+
+namespace CurrencyCalculatorClient
+{
+    public partial class CurrencyClient : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+        }
+
+        protected void r2dBtn_Click(object sender, EventArgs e)
+        {
+            ServiceReference1.CurrencyCalculatorSoapClient client = new ServiceReference1.CurrencyCalculatorSoapClient();
+            int amt = Convert.ToInt32(rupeeInput.Text);
+            double op = client.R2D(amt);
+            result.Text = "Rupee to Dollar: " + op;
+        }
+
+        protected void d2rBtn_Click(object sender, EventArgs e)
+        {
+            ServiceReference1.CurrencyCalculatorSoapClient client = new ServiceReference1.CurrencyCalculatorSoapClient();
+            int amt = Convert.ToInt32(dollarInput.Text);
+            double op = client.D2R(amt);
+            result.Text = "Dollar to Rupee: " + op;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PRACTICAL 2A - NETBEANS -  CURRENCY    
+
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.my.currency;
+
+import javax.jws.WebService;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+
+/**
+ *
+ * @author Lenovo
+ */
+@WebService(serviceName = "Currency")
+public class Currency {
+
+    /**
+     * This is a sample web service operation
+     */
+    
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "R2D")
+    public double R2D(@WebParam(name = "rupee") int rupee) {
+        //TODO write your implementation code here:
+        double amt = rupee/80;
+        return amt;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "D2R")
+    public double D2R(@WebParam(name = "dollar") int dollar) {
+        //TODO write your implementation code here:
+        double amt = dollar * 80;
+        return amt;
+        
+    }
+}
+
+----------
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package currencyclient;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class CurrencyClient {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+         Scanner sc = new Scanner(System.in);
+        
+        System.out.println("Treesa Joseph Currency Calculator");
+        System.out.println("Enter a no: ");
+        int amt = sc.nextInt();
+        
+        
+        System.out.println("Enter your choice: ");
+        System.out.println("1.D2R: ");
+        System.out.println("2.R2D: ");
+       
+        int choice = sc.nextInt();
+        
+        if(choice == 1)
+        {
+            System.out.println("Dollar to Rupee: " + d2R(amt));
+        }
+        else if(choice == 2)
+        {
+            System.out.println("Rupee to Dollar: " + r2D(amt));
+        }
+    }
+
+    private static double d2R(int dollar) {
+        currencyclient.Currency_Service service = new currencyclient.Currency_Service();
+        currencyclient.Currency port = service.getCurrencyPort();
+        return port.d2R(dollar);
+    }
+
+    private static double r2D(int rupee) {
+        currencyclient.Currency_Service service = new currencyclient.Currency_Service();
+        currencyclient.Currency port = service.getCurrencyPort();
+        return port.r2D(rupee);
+    }
+    
+}
+
+
+PRACTICAL 2B - CALCULATOR
+
+[WebService(Namespace = "http://tempuri.org/")]
+[WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+[System.ComponentModel.ToolboxItem(false)]
+public class CalculatorService : System.Web.Services.WebService
+{
+    [WebMethod]
+    public int add(int a, int b)
+    {
+        return (a + b);
+    }
+
+    [WebMethod]
+    public int sub(int a, int b)
+    {
+        return (a - b);
+    }
+
+    [WebMethod]
+    public int mul(int a, int b)
+    {
+        return (a * b);
+    }
+
+    [WebMethod]
+    public int div(int a, int b)
+    {
+        return (a / b);
+    }
+}
+
+
+------
+protected void btnAdd_Click(object sender, EventArgs e)
+{
+    ServiceReference1.CalculatorServiceSoapClient client1 = new ServiceReference1.CalculatorServiceSoapClient();
+    int a = Convert.ToInt32(num1.Text);
+    int b = Convert.ToInt32(num2.Text);
+    int res1 = client1.add(a, b);
+    result.Text = "Add: " + res1;
+}
+
+protected void btnSub_Click(object sender, EventArgs e)
+{
+    ServiceReference1.CalculatorServiceSoapClient client2 = new ServiceReference1.CalculatorServiceSoapClient();
+    int a = Convert.ToInt32(num1.Text);
+    int b = Convert.ToInt32(num2.Text);
+    int res2 = client2.sub(a, b);
+    result.Text = "Difference: " + res2;
+}
+
+protected void btnMul_Click(object sender, EventArgs e)
+{
+    ServiceReference1.CalculatorServiceSoapClient client3 = new ServiceReference1.CalculatorServiceSoapClient();
+    int a = Convert.ToInt32(num1.Text);
+    int b = Convert.ToInt32(num2.Text);
+    int res3 = client3.mul(a, b);
+    result.Text = "Product: " + res3;
+}
+
+protected void btnDiv_Click(object sender, EventArgs e)
+{
+    ServiceReference1.CalculatorServiceSoapClient client4 = new ServiceReference1.CalculatorServiceSoapClient();
+    int a = Convert.ToInt32(num1.Text);
+    int b = Convert.ToInt32(num2.Text);
+    int res4 = client4.div(a, b);
+    result.Text = "Divide: " + res4;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PRACTICAL 3 - RESTFUL WEB SERVICE - UPPERCASE, LOWERCASE
+
+package ;
+
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.GET;
+import javax.ws.rs.Produces;
+
+@Path("generic")
+public class StringOperations {
+
+    @Context
+    private UriInfo context;
+
+    public StringOperations() {
+    }
+
+    @GET
+    @Produces("text/html")
+    public String getHtml() {
+        return "<html> <body> <h1>Hello World</h1> </body> </html>";
+    }
+
+    @PUT
+    @Consumes("text/html")
+    public void putHtml(String content) {
+        // TODO return proper representation object
+        throw new UnsupportedOperationException();
+    }
+
+    @PUT
+    @Consumes("text/html")
+    @Path("/uppercase")
+    public String toUpper(String content) {
+        return content.toUpperCase();
+    }
+
+    @PUT
+    @Path("/lowercase")
+    @Consumes("text/html")
+    public String toLower(String content) {
+        return content.toLowerCase();
+    }
+}
+
+
+
+---
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package restfulclient;
+import java.util.*;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class RestfulClient {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Treesa Joseph Restful Service");
+        System.out.println("Enter a string: ");
+        String str = sc.next();
+        
+        restfulclient.restfulclient1 client = new restfulclient.restfulclient1();
+        
+        System.out.println("Uppercase:" +client.toUpper(str));
+         System.out.println("Lowercase:" +client.toLower(str));
+        
+        
+        
+    }
+    
+}
+
+
+
+PRACTICAL 4 A - RESTFUL SERVICE - REVERSE OF A NUM
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ReverseNumPackage;
+
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PUT;
+
+/**
+ * REST Web Service
+ *
+ * @author Lenovo
+ */
+@Path("generic")
+public class reverseNum {
+
+    @Context
+    private UriInfo context;
+
+    /**
+     * Creates a new instance of reverseNum
+     */
+    public reverseNum() {
+    }
+
+    /**
+     * Retrieves representation of an instance of ReverseNumPackage.reverseNum
+     * @return an instance of java.lang.String
+     */
+    @GET
+    @Produces("text/html")
+    public String getHtml() {
+        //TODO return proper representation object
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * PUT method for updating or creating an instance of reverseNum
+     * @param content representation for the resource
+     * @return an HTTP response with content of the updated or created resource.
+     */
+    @PUT
+    @Consumes("text/html")
+    public void putHtml(String content) {
+    }
+    
+    @Path("/reverseNum")
+    @PUT
+    @Consumes("text/html")
+    public String reverseNum(String s) {
+        String ans = "";
+        StringBuilder sb = new StringBuilder(s);
+        for (int i = 0 ; i < sb.length()/2 ; i++) {
+            int front = i ;
+            int back = sb.length() - 1 - i;
+
+            char frontChar = sb.charAt(front);
+            char backChar = sb.charAt(back);
+
+            sb.setCharAt(front, backChar);
+            sb.setCharAt(back, frontChar);
+        }
+        ans = sb.toString();
+        return ans;  
+    }
+
+}
+
+
+----
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package reversenumclient;
+import java.util.*;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class ReverseNumClient {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+         reversenumclient.ReverseNum client = new ReverseNum();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("75 Treesa Joseph");
+        System.out.println("Enter a number : ");
+        String num = sc.next();
+        System.out.println("Reverse = " + client.reverseNum(num));
+
+    }
+    
+}
+
+
+
+PRACTICAL 4B - RESTFUL SERVICE -  even or odd 
+
+@PUT
+@Consumes("text/html")
+@Path("/Evenodd")
+public String checkNumber(String content) {
+    int num = Integer.parseInt(content);
+    String ans = "";
+    if (num % 2 == 0) {
+        ans = "Number is even";
+    } else {
+        ans = "Number is odd";
+    }
+    return ans;
+}
+
+
+--
+public class EvenOddClient {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Treesa Joseph");
+        System.out.println("Enter Number: ");
+        String num = sc.next();
+        EvenOddPackage.EvenOdd client = new EvenOddPackage.EvenOdd();
+        System.out.println("Result: " + client.chekNumber(num));
+    }
+}
+
+
+
+
+
+
+
+PRACTICAL 4C - RESTFUL - FACTORIAL
+
+FactorialNumPackage.java
+@Path("/factorial")
+    @PUT
+    @Consumes("text/html")
+    public String factorialNum(String content) {
+        int num = Integer.parseInt(content);
+        
+        String ans = "";
+        int fact = 1;
+        
+        for (int i = 1 ; i <= num ; i++) {
+            fact *= i;
+        }
+        
+        ans = Integer.toString(fact);
+        return ans;
+    }
+
+
+----
+FactorialClient.java
+package factorialclient;
+import java.util.*;
+public class FactorialClient {
+    public static void main(String[] args) {
+        // TODO code application logic here
+         factorialclient.FactorialNum client = new FactorialNum();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("75 Treesa Joseph");
+        System.out.println("Enter a number : ");
+        String num = sc.next();
+        System.out.println("Factorial = " + client.factorialNum(num));
+
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PRACTICAL 5 - AWS - Study and Implementation of Infrastructure as a Service
+
+
+Steps to create an EC2 instance are as follows:
+Sign in into your AWS account as Root or an IAM user
+
+
+Select Services -> compute -> EC2
+
+After you go to EC2 dashboard, select launch instance
+
+
+Add details to the instance such as name and tag
+
+Add the OS for the instance and select the instance type
+
+Select a key pair, or create a new key pair by selecting the type and the file format for the same
+
+One can modify the network setting for the instance.
+
+Click on “Launch Instance” and check if the instance was successfully launched
+
+Go to “Connect to instance” section 
+
+-------------
+
+terminal - Sudo apt-get install apache2
+
+Sudo apt install mysql-server
+
+Sudo apt-get install php libapache2-mod-php
+
+Sudo service apache2 restart
+
+Start mysql with “sudo mysql”. This step checks if mysql is working or not
+
+-----------------
+
+Configure the Security group inbound rules to allow traffic on HTTP
+
+Grant permissions to AWS EC2 user as:
+Sudo chown –R ubuntu:ubuntu /var/www/html
+Sudo chmod –R 755 /var/www/html
+--------------
+
+Open filezilla and enter the public IP address of the EC2 instance in filezilla. Click OK
+
+Go to the Edit section in Taskbar -> Settings -> SFTP-> Add key file
+
+Select the connection created in the site manager
+
+After connection is established. Go to the folder /var/www/html in the instance
+
+Copy the public IP address in the browser and check the html file.
+
+Edit the index.html as one deems fit
+
+Check the public IP address again in the browser and verify if the changes were made
+
+
+
+
+-------------------
+
+
+PRACTICAL 6 - Write a program for Web Feed
+
+
+Steps:
+Start Xampp server
+
+
+Write the program for Web feed in a php file:
+<?php
+$feed = new SimpleXMLElement('<rss></rss>');
+$feed->addAttribute('version', '2.0');
+$channel = $feed->addChild('channel');
+$channel->addChild('title', 'My Blog');
+$channel->addChild('link', 'https://www.example.com/blog');
+$channel->addChild('description', 'Updates on my latest blog posts');
+// add entries to the feed
+$entries = array(
+array(
+'title' => 'My First Post',
+'link' => 'https://www.example.com/blog/my-first-post',
+'description' => 'This is the description of my first post',
+'pubDate' => 'Sat, 01 Jan 2022 00:00:00 +0000'
+),
+array(
+'title' => 'My Second Post',
+'link' => 'https://www.example.com/blog/my-second-post',
+'description' => 'This is the description of my second post',
+'pubDate' => 'Sun, 02 Jan 2022 00:00:00 +0000'
+)
+);
+foreach ($entries as $entry) {
+$item = $channel->addChild('item');
+$item->addChild('title', $entry['title']);
+$item->addChild('link', $entry['link']);
+$item->addChild('description', $entry['description']);
+$item->addChild('pubDate', $entry['pubDate']);
+}
+// output the RSS feed
+header('Content-Type: application/rss+xml');
+echo $feed->asXML();
+
+
+
+
+
+Check the program in the browser
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
